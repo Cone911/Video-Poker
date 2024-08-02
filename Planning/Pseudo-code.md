@@ -9,6 +9,7 @@
 - 2.2) Use a variable to keep track of the player's current credits.
 - 2.3) Use a variable to keep track of the current bet size.
 - 2.4) Use a variable to keep track of whether the game is in the deal or draw phase.
+- 2.5) Use a variable to track if the game is over (when credits = 0).
 
 ### 3. Store elements on the page that will be accessed in code more than once in variables to make code more concise, readable, and performant:
 - 3.1) Store the elements representing the player's hand (cards) on the page.
