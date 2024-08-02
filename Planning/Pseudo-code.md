@@ -36,7 +36,7 @@
 ### 5. Handle a player clicking the bet size button:
 - 5.1) Initialize the variable `betSize` with a value of 1.
 - 5.2) Initialize the variable `maxBetSize` with a value of 5.
-- 5.3) Define the function `incrementBetSize` which increments the bet size by one. If the bet size is greater than 5, the `betSize` goes back to 1 credit.
+- 5.3) Define the function `incrementBetSize` which increments the bet size by one. If the bet size is greater than `maxBetSize`, the `betSize` goes back to 1 credit.
 - 5.4) Render the updated bet size on the screen updating the `betSizeEl.innerText`.
 
 ### 6. Handle a player clicking the deal/draw button:
