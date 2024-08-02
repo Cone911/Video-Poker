@@ -1,0 +1,200 @@
+* {
+    box-sizing: border-box;
+  }
+
+body{
+    background-image: url('https://i.imgur.com/EtctvDF.png');
+    border: 0;
+    margin: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.main-container{
+    display: grid;
+    grid-template-rows: 0.5fr 1fr 0.5fr 1.5fr 1fr;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 10px;
+    text-align: center;
+    font-family: "Bungee Spice", sans-serif;
+    text-shadow: 
+    2px 2px 12px #383838,
+    4px 4px 32px #383838;
+}
+
+div{
+    border: none;
+    margin: 5px;
+}
+
+.title{
+    justify-content: center;
+}
+
+h1{
+    font-size: 5vh;
+}
+
+h2{
+    font-size: 3vh;
+    background-color: rgba(53, 86, 216, 0.387);
+}
+
+h3{
+    font-size: 3vh;
+}
+
+h4{
+    font-size: 2vh;
+}
+
+.payout-container{
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.payout-title{
+    margin: 0px;
+    margin-bottom: -20px;
+}
+
+.payout-table{
+    background-color: rgba(53, 86, 216, 0.387);
+    margin: 2px;
+}
+
+img{
+    width: 55%;
+    height: auto%;
+     
+}
+
+.board{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    padding: 5px;
+}
+
+.card{
+    width: 12.5%;
+    height: 90%;
+    border-radius: 5px;
+    border: dashed rgb(255, 255, 255);
+    background-color: rgba(155, 210, 146, 0.275);
+}
+
+.controls{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 5px;
+}
+
+.controls > div{
+    width: 90%;
+    text-align: center;
+}
+
+.credits{
+    border: 3px solid rgb(216, 124, 12);
+    background-color: rgba(155, 210, 146, 0.275);
+    font-size: 3vh;
+    flex-wrap: wrap;
+}
+
+.bet-size-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    height: 12vh;
+}
+
+#bet-size-btn{
+    flex-wrap: wrap;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-family: "Nabla", system-ui;
+    font-size: 4vh;
+    text-shadow: 
+    2px 2px 12px #383838,
+    3px 3px 12px #383838;
+    border: 3px solid rgb(216, 124, 12);
+    background-color: rgba(3, 156, 3, 0.56);
+    box-shadow: 
+    0 0 2px rgb(195, 213, 0), 
+    0 0 4px rgb(221, 232, 0), 
+    0 0 8px rgb(196, 218, 0), 
+    0 0 10px rgb(191, 198, 0), 
+    0 0 13px rgb(189, 176, 0), 
+    0 0 34px rgb(160, 158, 0);
+}
+
+#deal-btn{
+    width: 75%;
+    font-family: "Nabla", system-ui;
+    font-size: 4vh;
+    border-radius: 25px;
+    background-color: rgba(53, 86, 216, 0.387);
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 10px;
+    letter-spacing: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    
+    animation: neonBreath 0.6s infinite alternate;
+
+    box-shadow: 
+    0 0 2px rgb(195, 213, 0), 
+    0 0 3px rgb(221, 232, 0), 
+    0 0 4px rgb(196, 218, 0), 
+    0 0 5px rgb(191, 198, 0), 
+    0 0 6px rgb(189, 176, 0), 
+    0 0 7px rgb(160, 158, 0);
+      
+}
+
+
+@keyframes neonBreath {
+    0% {
+        box-shadow: 
+        0 0 2px rgb(195, 213, 0), 
+        0 0 5px rgb(221, 232, 0), 
+        0 0 10px rgb(196, 218, 0), 
+        0 0 20px rgb(191, 198, 0), 
+        0 0 40px rgb(189, 176, 0), 
+        0 0 60px rgb(160, 158, 0);;
+    }
+    100% { 
+      box-shadow: 
+      0 0 5px rgb(195, 213, 0), 
+      0 0 10px rgb(221, 232, 0), 
+      0 0 20px rgb(196, 218, 0), 
+      0 0 40px rgb(191, 198, 0), 
+      0 0 80px rgb(189, 176, 0), 
+      0 0 120px rgb(160, 158, 0);
+    }
+  }
+
+#deal-btn:hover {
+    background-color: rgba(255, 255, 255, 0.4); /* Slightly less transparent on hover */
+    color: #000;
+    box-shadow: 
+      0 0 10px #0ff, 
+      0 0 20px #0ff, 
+      0 0 30px #0ff, 
+      0 0 50px #0ff, 
+      0 0 100px #0ff, 
+      0 0 150px #0ff;
+  }
+
+
+
