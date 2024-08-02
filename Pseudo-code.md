@@ -21,8 +21,8 @@
 ### 4. Upon loading, the app should:
 4.1) Initialize the state variables:
   4.1.1) Initialize the player's hand to an empty array.
-  4.1.2) Initialize the player's credits to a default value (e.g., 1000 credits).
-  4.1.3) Initialize the bet size to a default value (e.g., 1 credit).
+  4.1.2) Initialize the player's credits to a default value (1000 credits).
+  4.1.3) Initialize the bet size to a default value (1 credit).
   4.1.4) Set the game phase to "deal".
 4.2) Render those state variables to the page:
   4.2.1) Render the player's hand:
