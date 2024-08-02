@@ -1,43 +1,43 @@
 # Video-Poker
 
 ### 1. Define required constants:
-#### 1.1) Define a constant array of strings called `deck` for the deck of cards, which includes all 52 cards. The first character of the string indicates the suit. The second character of the string indicates the value.
-#### 1.2) Define a constant object called `payouts` for the different winning hands and their corresponding payouts.
+- 1.1) Define a constant array of strings called `deck` for the deck of cards, which includes all 52 cards. The first character of the string indicates the suit. The second character of the string indicates the value.
+- 1.2) Define a constant object called `payouts` for the different winning hands and their corresponding payouts.
 
 ### 2. Define required variables used to track the state of the game:
-#### 2.1) Use an array to represent the player's hand.
-#### 2.2) Use a variable to keep track of the player's current credits.
-#### 2.3) Use a variable to keep track of the current bet size.
-#### 2.4) Use a variable to keep track of whether the game is in the deal or draw phase.
+- 2.1) Use an array to represent the player's hand.
+- 2.2) Use a variable to keep track of the player's current credits.
+- 2.3) Use a variable to keep track of the current bet size.
+- 2.4) Use a variable to keep track of whether the game is in the deal or draw phase.
 
 ### 3. Store elements on the page that will be accessed in code more than once in variables to make code more concise, readable, and performant:
-#### 3.1) Store the elements representing the player's hand (cards) on the page.
-#### 3.2) Store the element representing the player's current credits.
-#### 3.3) Store the element representing the current bet size.
-#### 3.4) Store the element representing the deal/draw button.
-#### 3.5) Store the element representing the on-screen messages for payouts (`<h3>` element).
-#### 3.6) Store the element representing the payouts table (a flexbox containing 9 rows and 6 columns).
+- 3.1) Store the elements representing the player's hand (cards) on the page.
+- 3.2) Store the element representing the player's current credits.
+- 3.3) Store the element representing the current bet size.
+- 3.4) Store the element representing the deal/draw button.
+- 3.5) Store the element representing the on-screen messages for payouts (`<h3>` element).
+- 3.6) Store the element representing the payouts table (a flexbox containing 9 rows and 6 columns).
 
 ### 4. Upon loading, the app should:
 #### 4.1) Initialize the state variables:
-##### 4.1.1) Initialize the player's hand to an empty array.
-#####  4.1.2) Initialize the player's credits to a default value (1000 credits).
-#####  4.1.3) Initialize the bet size to a default value (1 credit).
-#####  4.1.4) Set the game phase to "deal".
+- 4.1.1) Initialize the player's hand to an empty array.
+-  4.1.2) Initialize the player's credits to a default value (1000 credits).
+-  4.1.3) Initialize the bet size to a default value (1 credit).
+-  4.1.4) Set the game phase to "deal".
 #### 4.2) Render those state variables to the page:
-#####  4.2.1) Render the player's hand:
-######    4.2.1.1) Loop over each card element and set its value to the back of a card using the appropriate CSS class.
+-  4.2.1) Render the player's hand:
+    - 4.2.1.1) Loop over each card element and set its value to the back of a card using the appropriate CSS class.
 #### 4.2.2) Render the player's credits.
-#####  4.2.3) Render the current bet size = 1.
-#####  4.2.4) Render the deal button with appropriate text ("Deal").
-#####  4.2.5) Clear the on-screen messages for payouts.
-#####  4.2.6) Render the payouts table.
+- 4.2.3) Render the current bet size = 1.
+-  4.2.4) Render the deal button with appropriate text ("Deal").
+-  4.2.5) Clear the on-screen messages for payouts.
+-  4.2.6) Render the payouts table.
 
 ### 5. Handle a player clicking the bet size button:
-#### 5.1) Initialize the variable `betSize` with a value of 1.
-#### 5.2) Initialize the variable `maxBetSize` with a value of 5.
-#### 5.3) Define the function `incrementBetSize` which increments the bet size by one. If the bet size is greater than 5, the `betSize` goes back to 1 credit.
-#### 5.4) Render the updated bet size on the screen updating the `betSizeEl.innerText`.
+- 5.1) Initialize the variable `betSize` with a value of 1.
+- 5.2) Initialize the variable `maxBetSize` with a value of 5.
+- 5.3) Define the function `incrementBetSize` which increments the bet size by one. If the bet size is greater than 5, the `betSize` goes back to 1 credit.
+- 5.4) Render the updated bet size on the screen updating the `betSizeEl.innerText`.
 
 ### 6. Handle a player clicking the deal/draw button:
 
