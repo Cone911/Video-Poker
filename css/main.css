@@ -32,6 +32,8 @@ div{
 
 .title{
     justify-content: center;
+    border-bottom: 5px solid transparent;
+    /* animation: animateBorder 3.5s ease-in-out infinite; */
 }
 
 h1{
@@ -71,6 +73,9 @@ h4{
 img{
     width: 55%;
     height: auto%;
+    position: relative;
+    border-bottom: 5px solid transparent;
+    animation: animateBorder 3s ease-in-out infinite;
      
 }
 
@@ -151,7 +156,6 @@ img{
     transition: all 0.3s ease-in-out;
     
     animation: neonBreath 0.6s infinite alternate;
-
     box-shadow: 
     0 0 2px rgb(195, 213, 0), 
     0 0 3px rgb(221, 232, 0), 
@@ -159,7 +163,6 @@ img{
     0 0 5px rgb(191, 198, 0), 
     0 0 6px rgb(189, 176, 0), 
     0 0 7px rgb(160, 158, 0);
-      
 }
 
 
@@ -182,6 +185,46 @@ img{
       0 0 80px rgb(189, 176, 0), 
       0 0 120px rgb(160, 158, 0);
     }
+  }
+
+  @keyframes animateBorder {
+    0% {
+      border-top: 5px solid rgba(255, 247, 0, 0.705);
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid transparent;
+    }
+    25% {
+      border-top: 5px solid rgb(255, 247, 0);
+      border-right: 5px solid rgba(255, 247, 0, 0.669);
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid transparent;
+    }
+    50% {
+      border-top: 5px solid rgb(255, 247, 0);
+      border-right: 5px solid rgb(255, 247, 0);
+      border-bottom: 5px solid rgb(255, 247, 0);
+      border-left: 5px solid transparent;
+    }
+    75% {
+      border-top: 5px solid blue;
+      border-right: 5px solid blue;
+      border-bottom: 5px solid blue;
+      border-left: 5px solid blue;
+    }
+    90% {
+      border-top: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 5px solid blue;
+    }
+
+    100% {
+        border-top: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid transparent;
+      }
   }
 
 #deal-btn:hover {
