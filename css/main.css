@@ -72,7 +72,7 @@ h4{
 
 img{
     width: 55%;
-    height: auto%;
+    height: auto;
     position: relative;
     border-bottom: 5px solid transparent;
     animation: animateBorder 3s ease-in-out infinite;
@@ -88,11 +88,26 @@ img{
 }
 
 .card{
-    width: 12.5%;
-    height: 90%;
+    width: 14%;
+    height: 100%;
+    
     border-radius: 5px;
-    border: dashed rgb(255, 255, 255);
+    margin: 0px;
+    border: 4px dashed rgba(0, 41, 245, 0.28);
+    cursor: pointer;
     background-color: rgba(155, 210, 146, 0.275);
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  position: relative;
+
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+
+
 }
 
 .controls{
@@ -238,6 +253,14 @@ img{
       0 0 100px #0ff, 
       0 0 150px #0ff;
   }
+
+/* ----- Classes for the Deck of Cards ----- */
+
+.card.dA {
+  background-image: url("../images/diamonds/diamonds-A.svg");
+  background-color: white;
+}
+
 
 
 

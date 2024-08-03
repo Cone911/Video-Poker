@@ -28,8 +28,39 @@ let gamePhase;
 
   /*----- cached elements  -----*/
 
+  const cardsEl = document.querySelectorAll('.card');
+  const creditsEl = document.querySelector('.credits');
+  const betSizeBtn = document.querySelector('#bet-size-btn');
+  const dealBtn = document.querySelector('#deal-btn');
+  const messagesEl = document.querySelector('.messages');
+
 
   /*----- event listeners -----*/
 
+  cardsEl.forEach(card => {
+    card.addEventListener('click', () => {
+      console.log('Card clicked: ', card);
+    })
+  });
+
+  betSizeBtn.addEventListener('click', () =>{
+    console.log('Button clicked: ', betSizeBtn);
+  });
+  
+  dealBtn.addEventListener('click', () =>{
+    console.log('Button clicked: ', dealBtn);
+  });
 
   /*----- functions -----*/
+
+init();
+
+function init() {
+
+  playerHand = [];
+  playerCredits = 1000;
+  betSize = 1;
+  gamePhase = "deal";
+
+
+  };
