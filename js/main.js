@@ -39,10 +39,12 @@ let gamePhase;
 
   cardsEl.forEach(card => {
     card.addEventListener('click', () => {
-      console.log('Card clicked: ', card);
-    })
+      console.log('Clicked: ', card);
+      card.classList.add('dA'); // TEST: Adds the 'dA' class to the clicked card
+    });
   });
-
+  
+  
   betSizeBtn.addEventListener('click', () =>{
     console.log('Button clicked: ', betSizeBtn);
   });
@@ -62,5 +64,29 @@ function init() {
   betSize = 1;
   gamePhase = "deal";
 
+  renderPlayerHand();
+  renderCredits();
+  renderBetSize();
+  clearMessages();
 
   };
+
+function renderPlayerHand(){
+    cardsEl.forEach(card =>{
+      card.classList.add('back');
+    })
+  }
+
+function renderCredits(){
+  creditsEl.innerText = `Credits: ${playerCredits}`;
+}
+
+function renderBetSize() {
+  betSizeBtn.innerText = betSize;
+}
+
+function clearMessages() {
+  messagesEl.innerText = '';
+};
+
+
