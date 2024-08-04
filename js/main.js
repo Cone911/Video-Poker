@@ -1,4 +1,4 @@
-/*----- constants -----*/
+/*----- CONSTANTS -----*/
 
 const deck = [
   "dA", "dQ", "dK", "dJ", "d10", "d09", "d08", "d07", "d06", "d05", "d04", "d03", "d02",
@@ -19,14 +19,15 @@ const payouts = {
   "Jacks or Better": 1
 };
 
-/*----- state variables -----*/
+/*----- STATE VARIABLES -----*/
 let playerHand = [];
 let playerCredits;
 let betSize;
+let maxBet;
 let gamePhase;
 
 
-  /*----- cached elements  -----*/
+  /*----- CACHED ELEMENTS  -----*/
 
   const cardsEl = document.querySelectorAll('.card');
   const creditsEl = document.querySelector('.credits');
@@ -35,25 +36,29 @@ let gamePhase;
   const messagesEl = document.querySelector('.messages');
 
 
-  /*----- event listeners -----*/
+  /*----- EVENT LISTENERS -----*/
 
-  cardsEl.forEach(card => {
+cardsEl.forEach(card => {
     card.addEventListener('click', () => {
       console.log('Clicked: ', card);
-      card.classList.add('dA'); // TEST: Adds the 'dA' class to the clicked card
     });
   });
   
   
-  betSizeBtn.addEventListener('click', () =>{
-    console.log('Button clicked: ', betSizeBtn);
-  });
-  
-  dealBtn.addEventListener('click', () =>{
-    console.log('Button clicked: ', dealBtn);
+betSizeBtn.addEventListener('click', incrementBetSize);
+
+dealBtn.addEventListener('click', () => {
+  if (gamePhase === "start" || gamePhase === "deal") {
+      deductBet();
+      clearMessages();
+      shuffleDeck(deck);
+      dealCards(deck, 5); 
+      renderPlayerHand();
+      setGamePhaseToDraw();
+    }
   });
 
-  /*----- functions -----*/
+  /*----- FUNCTIONS -----*/
 
 init();
 
@@ -62,31 +67,76 @@ function init() {
   playerHand = [];
   playerCredits = 1000;
   betSize = 1;
-  gamePhase = "deal";
+  maxBetSize = 5;
+  gamePhase = "start";
 
   renderPlayerHand();
-  renderCredits();
-  renderBetSize();
+  renderCredits(playerCredits);
+  renderBetSize(betSize, maxBet);
   clearMessages();
+
+  // gamePhase = "deal";
 
   };
 
-function renderPlayerHand(){
-    cardsEl.forEach(card =>{
-      card.classList.add('back');
-    })
+  function renderPlayerHand() {
+    cardsEl.forEach((card, index) => {
+      setTimeout(() => {
+        if (gamePhase == "start") {
+          card.className = 'card back';
+          card.classList.add('animate__animated', 'animate__fadeInDown');
+        } else {
+          card.className = `card ${playerHand[index]}`;
+          card.classList.add('animate__animated', 'animate__flipInY');
+        }
+      }, index * 200); // Delay each iteration by index * 1000 milliseconds
+    });
   }
 
-function renderCredits(){
+function renderCredits(playerCredits){
   creditsEl.innerText = `Credits: ${playerCredits}`;
 }
 
-function renderBetSize() {
+function renderBetSize(betSize) {
   betSizeBtn.innerText = betSize;
+}
+
+function incrementBetSize(){
+  betSize++
+  if(betSize > maxBetSize){
+    betSize = 1;
+  }
+  renderBetSize(betSize);
+}
+
+function deductBet() {
+  playerCredits -= betSize;
+  renderCredits(playerCredits);
 }
 
 function clearMessages() {
   messagesEl.innerText = '';
 };
+
+function placeBet() {
+  playerCredits -= betSize;
+}
+
+function shuffleDeck(deck){
+  for (let i = deck.length -1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i+1));
+    [deck[i], deck[j]] = [deck[j], deck[i]]
+  }
+  return deck;
+}
+
+function dealCards(deck, numberOfCards){
+  playerHand = deck.splice(0, numberOfCards);
+  remainingDeck = deck;
+}
+
+function setGamePhaseToDraw() {
+  gamePhase = "draw";
+}
 
 
