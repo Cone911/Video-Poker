@@ -1,5 +1,4 @@
 /*----- CONSTANTS -----*/
-
 let deck = [
   "dA", "dQ", "dK", "dJ", "d10", "d09", "d08", "d07", "d06", "d05", "d04", "d03", "d02",
   "hA", "hQ", "hK", "hJ", "h10", "h09", "h08", "h07", "h06", "h05", "h04", "h03", "h02",
@@ -43,10 +42,9 @@ const cardsArray = Array.from(cardsEl);
 
 cardsArray.forEach((card, index) => {
   card.addEventListener('click', (evt) => {
-
-
     if (gamePhase === "draw") {
       toggleHoldStatus(index, evt.target);
+      highlightHeldCard(index);
     }
   });
 });
@@ -55,7 +53,6 @@ cardsArray.forEach((card, index) => {
 betSizeBtn.addEventListener('click', incrementBetSize);
 
 dealBtn.addEventListener('click', () => {
-
   if (gamePhase === "deal") {
     deductBet();
     renderCredits(playerCredits);
@@ -66,20 +63,20 @@ dealBtn.addEventListener('click', () => {
     renderPlayerHand();
     gamePhase = "draw";
     dealBtn.innerText = "HOLD";
-    messagesEl.innerText = "Click cards to hold."
-  }
-  else if (gamePhase === "draw") {
+    messagesEl.innerText = "Click cards to hold.";
+  } else if (gamePhase === "draw") {
+    removeStyling();
     replaceNonHeldCards();
-    renderPlayerHand();
+    renderPlayerHandwithNoAnimations();
     evaluateHand();
-    resetHeldCards();
     renderCredits(playerCredits);
+    resetHeldCards();
     dealBtn.innerText = "";
     setTimeout(() => {
       clearMessages();
       gamePhase = "roundOver";
       dealBtn.innerText = "DEAL";
-    }, 3300); // 2.8 SEC DELAY
+    }, 2800); // 2.8 SEC DELAY
   } else if(gamePhase === "roundOver"){
     clearMessages();
     gamePhase = "deal";
@@ -93,7 +90,6 @@ dealBtn.addEventListener('click', () => {
 init();
 
 function init() {
-
   playerHand = [];
   playerCredits = 1000;
   betSize = 1;
@@ -107,7 +103,6 @@ function init() {
   renderCredits(playerCredits);
   renderBetSize(betSize, maxBet);
   clearMessages();
-
 }
 
 function renderPlayerHand() {
@@ -119,14 +114,33 @@ function renderPlayerHand() {
       } else if (gamePhase === "draw") {
         card.className = `card ${playerHand[index]}`;
         card.classList.add('animate__animated', 'animate__flipInY');
-        if (heldCards[index]) {
-          card.classList.add('held');
-        } else {
-          card.classList.remove('held');
-        }
+      } else if (gamePhase == "roundOver"){
+        
       }
     }, index * 128);
   });
+}
+
+function renderPlayerHandwithNoAnimations() {
+  cardsEl.forEach((card, index) => {
+    setTimeout(() => {
+      if (gamePhase == "deal") {
+        card.className = 'card back';
+      } else if (gamePhase === "draw") {
+        card.className = `card ${playerHand[index]}`;
+      } else if (gamePhase == "roundOver"){
+      }
+    }, index * 100);
+  });
+}
+
+function highlightHeldCard(index) {
+  const card = cardsEl[index];
+  if (heldCards[index]) {
+    card.classList.add('held');
+  } else {
+    card.classList.remove('held');
+  }
 }
 
 function renderCredits(playerCredits) {
@@ -149,7 +163,6 @@ function resetDeck() {
     "sA", "sQ", "sK", "sJ", "s10", "s09", "s08", "s07", "s06", "s05", "s04", "s03", "s02"
   ];
 }
-
 
 function incrementBetSize() {
   betSize++
@@ -182,13 +195,10 @@ function dealCards(deck, numberOfCards) {
 
 function toggleHoldStatus(index, cardElement) {
   heldCards[index] = !heldCards[index];
-  renderPlayerHand();
 }
 
 function replaceNonHeldCards() {
-  // This function uses the heldCards array with Boolean values
-  // to count how many cards should be .shifted to the playerHand using index values.
- let numberOfCards = 0;
+  let numberOfCards = 0;
   for (let i = 0; i < heldCards.length; i++) {
     if (!heldCards[i]) {
       numberOfCards++;
@@ -202,8 +212,7 @@ function replaceNonHeldCards() {
     playerHand[index] = newCards.shift();
     }
   });
-};
-
+}
 
 function resetHeldCards() {
   heldCards = [false, false, false, false, false];
@@ -211,25 +220,21 @@ function resetHeldCards() {
 
 function removeStyling() {
   cardsEl.forEach((card, index) => {
-
     if (playerHand[index]) {
       card.classList.remove('held');
       card.classList.remove('animate__animated', 'animate__fadeInDown');
       card.classList.remove('animate__animated', 'animate__flipInY');
     }
   })
-};
+}
 
 function evaluateHand() {
-  // SEPARATE RANKS FROM SUITS.
   let ranks = playerHand.map(card => card.slice(1));
-
   let suits = playerHand.map(card => card[0]);
 
   console.log('Ranks:', ranks); // Debug the ranks being processed
   console.log('Suits:', suits); // Debug the suits being processed
 
-  // COUNT RANKS, COUNT SUITS. CREATE AN OBJECT.
   let rankCounts = {};
   let suitCounts = {};
 
@@ -239,11 +244,10 @@ function evaluateHand() {
   });
 
   suits.forEach(suit => {
-    if (!suitCounts[suit]) suitCounts[suit] = 0;
+    if (!suitCounts[suit]) suitCounts[suit]++;
     suitCounts[suit]++;
   });
 
-  // CONVERT TO ARRAYS.
   let rankCountArray = [];
   let suitCountArray = [];
 
@@ -255,7 +259,6 @@ function evaluateHand() {
     suitCountArray.push(suitCounts[suit]);
   }
 
-  // FUNCTIONS TO CHECK WINNING COMBOS:
   function isRoyalFlush() {
     return isStraightFlush() && ['10', 'J', 'Q', 'K', 'A'].every(rank => ranks.includes(rank));
   }
@@ -291,15 +294,12 @@ function evaluateHand() {
       '02': 0, '03': 1, '04': 2, '05': 3, '06': 4, '07': 5, '08': 6, '09': 7, '10': 8, 'J': 9, 'Q': 10, 'K': 11, 'A': 12
     };
 
-    // MAPS RANKS TO THEIR VALUES
     const rankValues = ranks.map(rank => rankValuesMap[rank]);
 
     rankValues.sort((a, b) => a - b);
 
-    // CHECKS FOR REGULAR STRAIGHT
     for (let i = 0; i < 4; i++) {
       if (rankValues[i + 1] - rankValues[i] !== 1) {
-        // CHECK FOR "WHEEL STRAIGHT"
         if (i === 3 && rankValues[i + 1] === 12 && rankValues[0] === 0) {
           return true;
         }
@@ -308,7 +308,6 @@ function evaluateHand() {
     }
     return true;
   }
-  
 
   function isThreeOfAKind() {
     return rankCountArray.includes(3);
@@ -334,7 +333,6 @@ function evaluateHand() {
     return result;
   }
 
-  // WHAT IS THE WINNING COMBO?
   let winningCombination = null;
   if (isRoyalFlush()) {
     winningCombination = "Royal Flush";
@@ -356,7 +354,6 @@ function evaluateHand() {
     winningCombination = "Jacks or Better";
   }
 
-  // UPDATE CREDITS, DISPLAY WINNING MESSAGE.
   if (winningCombination) {
     let payout = payouts[winningCombination] * betSize;
     playerCredits += payout;
