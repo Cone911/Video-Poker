@@ -25,40 +25,56 @@ let playerCredits;
 let betSize;
 let maxBet;
 let gamePhase;
+let heldCards;
 
 
-  /*----- CACHED ELEMENTS  -----*/
+/*----- CACHED ELEMENTS  -----*/
 
-  const cardsEl = document.querySelectorAll('.card');
-  const creditsEl = document.querySelector('.credits');
-  const betSizeBtn = document.querySelector('#bet-size-btn');
-  const dealBtn = document.querySelector('#deal-btn');
-  const messagesEl = document.querySelector('.messages');
+const cardsEl = document.querySelectorAll('.card');
+const creditsEl = document.querySelector('.credits');
+const betSizeBtn = document.querySelector('#bet-size-btn');
+const dealBtn = document.querySelector('#deal-btn');
+const messagesEl = document.querySelector('.messages');
+
+const cardsArray = Array.from(cardsEl);
 
 
-  /*----- EVENT LISTENERS -----*/
+/*----- EVENT LISTENERS -----*/
 
-cardsEl.forEach(card => {
-    card.addEventListener('click', () => {
-      console.log('Clicked: ', card);
-    });
+cardsArray.forEach((card, index) => {
+  card.addEventListener('click', (evt) => {
+
+
+    if (gamePhase === "draw") {
+      toggleHoldStatus(index, evt.target);
+    }
   });
-  
-  
+});
+
+
 betSizeBtn.addEventListener('click', incrementBetSize);
 
 dealBtn.addEventListener('click', () => {
-  if (gamePhase === "start" || gamePhase === "deal") {
-      deductBet();
-      clearMessages();
-      shuffleDeck(deck);
-      dealCards(deck, 5); 
-      renderPlayerHand();
-      setGamePhaseToDraw();
-    }
-  });
 
-  /*----- FUNCTIONS -----*/
+  if (gamePhase === "deal") {
+    deductBet();
+    clearMessages();
+    shuffleDeck(deck);
+    dealCards(deck, 5);
+    renderPlayerHand();
+    gamePhase = "draw";
+  }
+  else if (gamePhase === "draw") {
+    replaceNonHeldCards();
+    renderPlayerHand();
+    // resetHeldCards();
+    // evaluateHand();
+    // renderCredits();
+    // renderMessages();
+  }
+});
+
+/*----- FUNCTIONS -----*/
 
 init();
 
@@ -68,32 +84,40 @@ function init() {
   playerCredits = 1000;
   betSize = 1;
   maxBetSize = 5;
-  gamePhase = "start";
+  gamePhase = "deal";
+  heldCards = [false, false, false, false, false];
 
+  shuffleDeck(deck);
+  dealCards(deck, 5);
   renderPlayerHand();
   renderCredits(playerCredits);
   renderBetSize(betSize, maxBet);
   clearMessages();
 
-  // gamePhase = "deal";
+}
 
-  };
-
-  function renderPlayerHand() {
-    cardsEl.forEach((card, index) => {
-      setTimeout(() => {
-        if (gamePhase == "start") {
-          card.className = 'card back';
-          card.classList.add('animate__animated', 'animate__fadeInDown');
+function renderPlayerHand() {
+  cardsEl.forEach((card, index) => {
+    setTimeout(() => {
+      if (gamePhase == "deal") {
+        card.className = 'card back';
+        card.classList.add('animate__animated', 'animate__fadeInDown');
+        dealBtn.innerText = "BET";
+      } else if (gamePhase === "draw") {
+        card.className = `card ${playerHand[index]}`;
+        card.classList.add('animate__animated', 'animate__flipInY');
+        dealBtn.innerText = "HOLD";
+        if (heldCards[index]) {
+          card.classList.add('held');
         } else {
-          card.className = `card ${playerHand[index]}`;
-          card.classList.add('animate__animated', 'animate__flipInY');
+          card.classList.remove('held');
         }
-      }, index * 200); // Delay each iteration by index * 1000 milliseconds
-    });
-  }
+      }
+    }, index * 128);
+  });
+}
 
-function renderCredits(playerCredits){
+function renderCredits(playerCredits) {
   creditsEl.innerText = `Credits: ${playerCredits}`;
 }
 
@@ -101,9 +125,13 @@ function renderBetSize(betSize) {
   betSizeBtn.innerText = betSize;
 }
 
-function incrementBetSize(){
+function clearMessages() {
+  messagesEl.innerText = '';
+}
+
+function incrementBetSize() {
   betSize++
-  if(betSize > maxBetSize){
+  if (betSize > maxBetSize) {
     betSize = 1;
   }
   renderBetSize(betSize);
@@ -114,29 +142,59 @@ function deductBet() {
   renderCredits(playerCredits);
 }
 
-function clearMessages() {
-  messagesEl.innerText = '';
-};
-
 function placeBet() {
   playerCredits -= betSize;
 }
 
-function shuffleDeck(deck){
-  for (let i = deck.length -1; i > 0; i--){
-    const j = Math.floor(Math.random() * (i+1));
+function shuffleDeck(deck) {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
     [deck[i], deck[j]] = [deck[j], deck[i]]
   }
   return deck;
 }
 
-function dealCards(deck, numberOfCards){
+function dealCards(deck, numberOfCards) {
   playerHand = deck.splice(0, numberOfCards);
   remainingDeck = deck;
 }
 
-function setGamePhaseToDraw() {
-  gamePhase = "draw";
+function toggleHoldStatus(index, cardElement) {
+  heldCards[index] = !heldCards[index];
+  renderPlayerHand();
 }
 
+function replaceNonHeldCards() {
+  // This function uses the heldCards array with Boolean values
+  // to count how many cards should be .shifted to the playerHand using index values.
+ let numberOfCards = 0;
+  for (let i = 0; i < heldCards.length; i++) {
+    if (!heldCards[i]) {
+      numberOfCards++;
+    }
+  }
+  
+  let newCards = remainingDeck.splice(0, numberOfCards); // Save new cards from the top of the deck in a new array.
+  
+  playerHand.forEach((_, index) => {  //If the heldCard value is false, replace that card.
+    if(!heldCards[index]){
+    playerHand[index] = newCards.shift();
+    }
+  });
+};
 
+
+function resetHeldCards() {
+  heldCards = [false, false, false, false, false];
+}
+
+function removeStyling() {
+  cardsEl.forEach((card, index) => {
+
+    if (playerHand[index]) {
+      card.classList.remove('held');
+      card.classList.remove('animate__animated', 'animate__fadeInDown');
+      card.classList.remove('animate__animated', 'animate__flipInY');
+    }
+  })
+};
