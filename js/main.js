@@ -58,19 +58,31 @@ dealBtn.addEventListener('click', () => {
 
   if (gamePhase === "deal") {
     deductBet();
+    renderCredits(playerCredits);
     clearMessages();
     shuffleDeck(deck);
     dealCards(deck, 5);
     renderPlayerHand();
     gamePhase = "draw";
+    dealBtn.innerText = "HOLD";
+    messagesEl.innerText = "Click cards to hold."
   }
   else if (gamePhase === "draw") {
     replaceNonHeldCards();
     renderPlayerHand();
-    // resetHeldCards();
-    // evaluateHand();
-    // renderCredits();
-    // renderMessages();
+    evaluateHand();
+    resetHeldCards();
+    renderCredits(playerCredits);
+    setTimeout(() => {
+      clearMessages();
+      gamePhase = "roundOver";
+      dealBtn.innerText = "DEAL";
+    }, 2500); // 2.5 SEC DELAY
+  } else if(gamePhase === "roundOver"){
+    clearMessages();
+    gamePhase = "deal";
+    renderPlayerHand();
+    dealBtn.innerText = "BET";
   }
 });
 
@@ -102,11 +114,9 @@ function renderPlayerHand() {
       if (gamePhase == "deal") {
         card.className = 'card back';
         card.classList.add('animate__animated', 'animate__fadeInDown');
-        dealBtn.innerText = "BET";
       } else if (gamePhase === "draw") {
         card.className = `card ${playerHand[index]}`;
         card.classList.add('animate__animated', 'animate__flipInY');
-        dealBtn.innerText = "HOLD";
         if (heldCards[index]) {
           card.classList.add('held');
         } else {
@@ -139,7 +149,6 @@ function incrementBetSize() {
 
 function deductBet() {
   playerCredits -= betSize;
-  renderCredits(playerCredits);
 }
 
 function placeBet() {
@@ -174,9 +183,9 @@ function replaceNonHeldCards() {
     }
   }
   
-  let newCards = remainingDeck.splice(0, numberOfCards); // Save new cards from the top of the deck in a new array.
+  let newCards = remainingDeck.splice(0, numberOfCards);
   
-  playerHand.forEach((_, index) => {  //If the heldCard value is false, replace that card.
+  playerHand.forEach((_, index) => { 
     if(!heldCards[index]){
     playerHand[index] = newCards.shift();
     }
@@ -198,3 +207,135 @@ function removeStyling() {
     }
   })
 };
+
+function evaluateHand() {
+  // SEPARATE RANKS FROM SUITS.
+  let ranks = playerHand.map(card => card.slice(1));
+  let suits = playerHand.map(card => card[0]);
+
+  // COUNT RANKS, COUNT SUITS.
+  let rankCounts = {};
+  let suitCounts = {};
+
+  ranks.forEach(rank => {
+    if (!rankCounts[rank]) rankCounts[rank] = 0;
+    rankCounts[rank]++;
+  });
+
+  suits.forEach(suit => {
+    if (!suitCounts[suit]) suitCounts[suit] = 0;
+    suitCounts[suit]++;
+  });
+
+  // CONVERT TO ARRAYS.
+  let rankCountArray = [];
+  let suitCountArray = [];
+
+  for (let rank in rankCounts) {
+    rankCountArray.push(rankCounts[rank]);
+  }
+
+  for (let suit in suitCounts) {
+    suitCountArray.push(suitCounts[suit]);
+  }
+
+  // FUNCTIONS TO CHECK WINNING COMBOS:
+  function isRoyalFlush() {
+    return isStraightFlush() && ['10', 'J', 'Q', 'K', 'A'].every(rank => ranks.includes(rank));
+  }
+
+  function isStraightFlush() {
+    return isFlush() && isStraight();
+  }
+
+  function isFourOfAKind() {
+    return rankCountArray.includes(4);
+  }
+
+  function isFullHouse() {
+    let threeOfAKind = false;
+    let pair = false;
+    rankCountArray.forEach(count => {
+      if (count === 3) {
+        threeOfAKind = true;
+      }
+      if (count === 2) {
+        pair = true;
+      }
+    });
+    return threeOfAKind && pair;
+  }
+
+  function isFlush() {
+    return suitCountArray.includes(5);
+  }
+
+  function isStraight() {
+    const rankValuesMap = {
+      '2': 0, '3': 1, '4': 2, '5': 3, '6': 4, '7': 5, '8': 6, '9': 7, '10': 8, 'J': 9, 'Q': 10, 'K': 11, 'A': 12
+    };
+    const rankValues = ranks.map(rank => rankValuesMap[rank]);
+    rankValues.sort((a, b) => a - b);
+    for (let i = 0; i < 4; i++) {
+      if (rankValues[i + 1] - rankValues[i] !== 1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isThreeOfAKind() {
+    return rankCountArray.includes(3);
+  }
+
+  function isTwoPair() {
+    let pairCount = 0;
+    rankCountArray.forEach(count => {
+      if (count === 2) {
+        pairCount++;
+      }
+    });
+    return pairCount === 2;
+  }
+
+  function isJacksOrBetter() {
+    let result = false;
+    ['J', 'Q', 'K', 'A'].forEach(highCard => {
+      if (rankCounts[highCard] === 2) {
+        result = true;
+      }
+    });
+    return result;
+  }
+
+  // WHAT IS THE WINNING COMBO?
+  let winningCombination = null;
+  if (isRoyalFlush()) {
+    winningCombination = "Royal Flush";
+  } else if (isStraightFlush()) {
+    winningCombination = "Straight Flush";
+  } else if (isFourOfAKind()) {
+    winningCombination = "Four of a Kind";
+  } else if (isFullHouse()) {
+    winningCombination = "Full House";
+  } else if (isFlush()) {
+    winningCombination = "Flush";
+  } else if (isStraight()) {
+    winningCombination = "Straight";
+  } else if (isThreeOfAKind()) {
+    winningCombination = "Three of a Kind";
+  } else if (isTwoPair()) {
+    winningCombination = "Two Pair";
+  } else if (isJacksOrBetter()) {
+    winningCombination = "Jacks or Better";
+  }
+
+  // UPDATE CREDITS, DISPLAY WINNING MESSAGE.
+  if (winningCombination) {
+    let payout = payouts[winningCombination] * betSize;
+    playerCredits += payout;
+    messagesEl.innerText = `${winningCombination}! You win ${payout} credits!`;
+  } else {
+    messagesEl.innerText = "Try again?";
+  }
+}
