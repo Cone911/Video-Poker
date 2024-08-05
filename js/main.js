@@ -1,6 +1,6 @@
 /*----- CONSTANTS -----*/
 
-const deck = [
+let deck = [
   "dA", "dQ", "dK", "dJ", "d10", "d09", "d08", "d07", "d06", "d05", "d04", "d03", "d02",
   "hA", "hQ", "hK", "hJ", "h10", "h09", "h08", "h07", "h06", "h05", "h04", "h03", "h02",
   "cA", "cQ", "cK", "cJ", "c10", "c09", "c08", "c07", "c06", "c05", "c04", "c03", "c02",
@@ -60,6 +60,7 @@ dealBtn.addEventListener('click', () => {
     deductBet();
     renderCredits(playerCredits);
     clearMessages();
+    resetDeck();
     shuffleDeck(deck);
     dealCards(deck, 5);
     renderPlayerHand();
@@ -73,11 +74,12 @@ dealBtn.addEventListener('click', () => {
     evaluateHand();
     resetHeldCards();
     renderCredits(playerCredits);
+    dealBtn.innerText = "";
     setTimeout(() => {
       clearMessages();
       gamePhase = "roundOver";
       dealBtn.innerText = "DEAL";
-    }, 2500); // 2.5 SEC DELAY
+    }, 3300); // 2.8 SEC DELAY
   } else if(gamePhase === "roundOver"){
     clearMessages();
     gamePhase = "deal";
@@ -138,6 +140,16 @@ function renderBetSize(betSize) {
 function clearMessages() {
   messagesEl.innerText = '';
 }
+
+function resetDeck() {
+  deck = [
+    "dA", "dQ", "dK", "dJ", "d10", "d09", "d08", "d07", "d06", "d05", "d04", "d03", "d02",
+    "hA", "hQ", "hK", "hJ", "h10", "h09", "h08", "h07", "h06", "h05", "h04", "h03", "h02",
+    "cA", "cQ", "cK", "cJ", "c10", "c09", "c08", "c07", "c06", "c05", "c04", "c03", "c02",
+    "sA", "sQ", "sK", "sJ", "s10", "s09", "s08", "s07", "s06", "s05", "s04", "s03", "s02"
+  ];
+}
+
 
 function incrementBetSize() {
   betSize++
@@ -211,9 +223,13 @@ function removeStyling() {
 function evaluateHand() {
   // SEPARATE RANKS FROM SUITS.
   let ranks = playerHand.map(card => card.slice(1));
+
   let suits = playerHand.map(card => card[0]);
 
-  // COUNT RANKS, COUNT SUITS.
+  console.log('Ranks:', ranks); // Debug the ranks being processed
+  console.log('Suits:', suits); // Debug the suits being processed
+
+  // COUNT RANKS, COUNT SUITS. CREATE AN OBJECT.
   let rankCounts = {};
   let suitCounts = {};
 
@@ -272,17 +288,27 @@ function evaluateHand() {
 
   function isStraight() {
     const rankValuesMap = {
-      '2': 0, '3': 1, '4': 2, '5': 3, '6': 4, '7': 5, '8': 6, '9': 7, '10': 8, 'J': 9, 'Q': 10, 'K': 11, 'A': 12
+      '02': 0, '03': 1, '04': 2, '05': 3, '06': 4, '07': 5, '08': 6, '09': 7, '10': 8, 'J': 9, 'Q': 10, 'K': 11, 'A': 12
     };
+
+    // MAPS RANKS TO THEIR VALUES
     const rankValues = ranks.map(rank => rankValuesMap[rank]);
+
     rankValues.sort((a, b) => a - b);
+
+    // CHECKS FOR REGULAR STRAIGHT
     for (let i = 0; i < 4; i++) {
       if (rankValues[i + 1] - rankValues[i] !== 1) {
+        // CHECK FOR "WHEEL STRAIGHT"
+        if (i === 3 && rankValues[i + 1] === 12 && rankValues[0] === 0) {
+          return true;
+        }
         return false;
       }
     }
     return true;
   }
+  
 
   function isThreeOfAKind() {
     return rankCountArray.includes(3);
