@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!--Google Fonts-->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Bungee+Spice&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Permanent+Marker&family=VT323&display=swap" rel="stylesheet">
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Bungee+Spice&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Permanent+Marker&family=VT323&display=swap"
+        rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Bungee+Spice&family=Nabla&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Permanent+Marker&family=VT323&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abel&family=Bebas+Neue&family=Bungee+Spice&family=Nabla&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Permanent+Marker&family=VT323&display=swap"
+        rel="stylesheet">
 
-<!-- Animations -->
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-/>
-    
+    <!-- Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
     <title>Video-Poker</title>
     <link rel="stylesheet" href="css/main.css">
     <script defer src="js/main.js"></script>
 </head>
+
 <body>
     <div class="main-container">
         <div class="title animate__animated animate__fadeInDown">
@@ -29,12 +32,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         <div class="payout-container">
             <div class="payout-title">
                 Payouts Table
-            </div>   
+            </div>
             <div class="payout-table"><img src="https://i.imgur.com/cwdbq3S.png"></div>
         </div>
 
         <div class="messages">Message</div>
-        
+
 
         <div class="board">
             <div class="card" id="0"></div>
@@ -45,14 +48,38 @@ href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         </div>
 
         <div class="controls">
-            <div><h4 class="credits">Credits: 1000</h4></div>
-            <div><section class="bet-size-container">
-                <div class="bet-size-title">Bet Size</div>
-                <button id="bet-size-btn">1</button>
-            </section>
+            <div class="credits-container">
+                <h4 class="credits">Credits: 1000</h4>
+                <input id="checkboxInput" type="checkbox" />
+                <label class="toggleSwitch" for="checkboxInput">
+                    <div class="speaker">
+                        <svg viewBox="0 0 75 75" version="1.0" xmlns="http://www.w3.org/2000/svg">
+                            <path style="stroke:#fff;stroke-width:5;stroke-linejoin:round;fill:#fff;"
+                                d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z">
+                            </path>
+                            <path style="fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round"
+                                d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6">
+                            </path>
+                        </svg>
+                    </div>
+
+                    <div class="mute-speaker">
+                        <svg stroke-width="5" stroke="#fff" viewBox="0 0 75 75" version="1.0">
+                            <path stroke-linejoin="round" fill="#fff" d="m39,14-17,15H6V48H22l17,15z"></path>
+                            <path stroke-linecap="round" fill="#fff" d="m49,26 20,24m0-24-20,24"></path>
+                        </svg>
+                    </div>
+                </label>
+            </div>
+            <div>
+                <section class="bet-size-container">
+                    <div class="bet-size-title">Bet Size</div>
+                    <button id="bet-size-btn">1</button>
+                </section>
             </div>
             <div><button id="deal-btn">DEAL</button></div>
         </div>
     </div>
 </body>
+
 </html>

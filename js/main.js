@@ -36,6 +36,7 @@ const creditsEl = document.querySelector('.credits');
 const betSizeBtn = document.querySelector('#bet-size-btn');
 const dealBtn = document.querySelector('#deal-btn');
 const messagesEl = document.querySelector('.messages');
+const muteBtn = document.getElementById('checkboxInput');
 
 const cardsArray = Array.from(cardsEl);
 
@@ -63,8 +64,20 @@ holdCardAudio.volume = 0.60;
 let fanfareAudio = new Audio('SoundFx/Fanfare.wav');
 fanfareAudio.volume = 0.60;
 
+let audioElements = [
+  swooshAudio,
+  flippingCardAudio,
+  coinAudio,
+  reverseAudio,
+  dealBtnAudio,
+  holdCardAudio,
+  fanfareAudio
+];
+
 
 /*----- EVENT LISTENERS -----*/
+
+
 
 cardsArray.forEach((card, index) => {
   card.addEventListener('click', (evt) => {
@@ -111,6 +124,9 @@ dealBtn.addEventListener('click', () => {
     dealBtn.innerText = "BET";
   }
 });
+
+muteBtn.addEventListener('click', toggleMute);
+
 
 /*----- FUNCTIONS -----*/
 
@@ -395,4 +411,11 @@ function evaluateHand() {
   } else {
     messagesEl.innerText = "Try again?";
   }
+}
+
+// Function to toggle mute for all audio elements
+function toggleMute() {
+  audioElements.forEach(audio => {
+    audio.muted = !audio.muted;
+  });
 }
