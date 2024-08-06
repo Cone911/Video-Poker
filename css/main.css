@@ -58,19 +58,14 @@ h4 {
   background-color: rgba(53, 86, 216, 0.387);
 }
 
-.payout-table {
+#payout-table {
   background-color: rgba(53, 86, 216, 0.387);
   margin: 0px;
-}
-
-img {
   width: 55%;
   height: auto;
   position: relative;
-  border-bottom: 5px solid transparent;
-  animation: animateBorder 3s ease-in-out infinite;
-
 }
+
 
 .board {
   display: flex;
@@ -116,6 +111,7 @@ img {
   justify-content: space-around;
   align-items: center;
   padding-bottom: 5px;
+  z-index: 900;
 }
 
 .controls>div {
@@ -126,7 +122,8 @@ img {
 
 .credits-container{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -314,6 +311,26 @@ img {
     height: 100px;
     font-size: 3vh;
   }
+}
+
+
+/* ------Gotta have Confetti ------------ */
+#confetti {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border: none;
+  opacity: 85;
+}
+
+#confetti.hidden {
+  display: none;
 }
 
 
@@ -781,9 +798,10 @@ img {
 
 /* From Uiverse.io by faxriddin20 */ 
 /* The switch - the box around the speaker*/
+
 .toggleSwitch {
-  width: 50px;
-  height: 50px;
+  width: 75px;
+  height: 75px;
   position: relative;
   display: flex;
   align-items: center;

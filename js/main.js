@@ -26,9 +26,6 @@ let maxBet;
 let gamePhase;
 let heldCards;
 
-
-
-
 /*----- CACHED ELEMENTS  -----*/
 
 const cardsEl = document.querySelectorAll('.card');
@@ -36,6 +33,7 @@ const creditsEl = document.querySelector('.credits');
 const betSizeBtn = document.querySelector('#bet-size-btn');
 const dealBtn = document.querySelector('#deal-btn');
 const messagesEl = document.querySelector('.messages');
+const confettiEl = document.getElementById('confetti');
 const muteBtn = document.getElementById('checkboxInput');
 
 const cardsArray = Array.from(cardsEl);
@@ -43,7 +41,6 @@ const cardsArray = Array.from(cardsEl);
 // SOUND FX LIBRARY:
 let swooshAudio = new Audio('SoundFx/Quick-Woosh-Edit.mp3');
 swooshAudio.volume = 0.25;
-swooshAudio.playbackRate = 1;
 
 let flippingCardAudio = new Audio('SoundFx/Flipping Card.mp3');
 flippingCardAudio.volume = 0.30;
@@ -59,10 +56,13 @@ let dealBtnAudio = new Audio('SoundFx/Deal Button Pop.wav');
 dealBtnAudio.volume = 0.60;
 
 let holdCardAudio = new Audio('SoundFx/Finger Snap.wav');
-holdCardAudio.volume = 0.60;
+holdCardAudio.volume = 0.40;
 
 let fanfareAudio = new Audio('SoundFx/Fanfare.wav');
 fanfareAudio.volume = 0.60;
+
+let noluckAudio = new Audio('SoundFx/Sproing.wav');
+noluckAudio.volume = 0.5;
 
 let audioElements = [
   swooshAudio,
@@ -71,7 +71,8 @@ let audioElements = [
   reverseAudio,
   dealBtnAudio,
   holdCardAudio,
-  fanfareAudio
+  fanfareAudio,
+  noluckAudio
 ];
 
 
@@ -119,6 +120,7 @@ dealBtn.addEventListener('click', () => {
     }, 2800); // 2.8 SEC DELAY
   } else if(gamePhase === "roundOver"){
     clearMessages();
+    confettiEl.classList.add('hidden');
     gamePhase = "deal";
     renderPlayerHand();
     dealBtn.innerText = "BET";
@@ -293,9 +295,10 @@ function evaluateHand() {
   });
 
   suits.forEach(suit => {
-    if (!suitCounts[suit]) suitCounts[suit]++;
+    if (!suitCounts[suit]) suitCounts[suit] = 0;
     suitCounts[suit]++;
   });
+  
 
   let rankCountArray = [];
   let suitCountArray = [];
@@ -407,13 +410,16 @@ function evaluateHand() {
     fanfareAudio.play();
     let payout = payouts[winningCombination] * betSize;
     playerCredits += payout;
+    messagesEl.classList.add('animate__animated', 'animate__tada');
+    confettiEl.classList.remove('hidden');
     messagesEl.innerText = `${winningCombination}! You win ${payout} credits!`;
   } else {
+    noluckAudio.play();
     messagesEl.innerText = "Try again?";
+    messagesEl.classList.remove('animate__tada');
   }
 }
 
-// Function to toggle mute for all audio elements
 function toggleMute() {
   audioElements.forEach(audio => {
     audio.muted = !audio.muted;
