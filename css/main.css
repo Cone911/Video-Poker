@@ -27,30 +27,20 @@ body {
 
 div {
   border: none;
-  margin: 5px;
+  margin: 2px;
 }
 
 .title {
   justify-content: center;
-  border-bottom: 5px solid transparent;
-  /* animation: animateBorder 3.5s ease-in-out infinite; */
-}
-
-h1 {
   font-size: 5vh;
-}
-
-h2 {
-  font-size: 3vh;
-  background-color: rgba(53, 86, 216, 0.387);
-}
-
-h3 {
-  font-size: 3vh;
 }
 
 h4 {
   font-size: 2vh;
+}
+
+.messages {
+  font-size: 3.2vh;
 }
 
 .payout-container {
@@ -62,12 +52,14 @@ h4 {
 
 .payout-title {
   margin: 0px;
-  margin-bottom: -20px;
+  margin-bottom: 0px;
+  font-size: 3.5vh;
+  background-color: rgba(53, 86, 216, 0.387);
 }
 
 .payout-table {
   background-color: rgba(53, 86, 216, 0.387);
-  margin: 2px;
+  margin: 0px;
 }
 
 img {
@@ -122,7 +114,7 @@ img {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 5px;
+  padding-bottom: 5px;
 }
 
 .controls>div {
@@ -183,7 +175,7 @@ img {
 #deal-btn {
   width: 75%;
   font-family: "Nabla", system-ui;
-  font-size: 4vw;
+  font-size: 3vw;
   border-radius: 25px;
   background-color: rgba(53, 86, 216, 0.387);
   border: 2px solid rgb(255, 0, 0);
@@ -208,11 +200,11 @@ img {
   0% {
     box-shadow:
       0 0 2px rgb(195, 213, 0),
-      0 0 5px rgb(221, 232, 0),
-      0 0 10px rgb(196, 218, 0),
-      0 0 20px rgb(191, 198, 0),
-      0 0 40px rgb(189, 176, 0),
-      0 0 60px rgb(160, 158, 0);
+      0 0 3px rgb(221, 232, 0),
+      0 0 5px rgb(196, 218, 0),
+      0 0 25px rgb(191, 198, 0),
+      0 0 25px rgb(189, 176, 0),
+      0 0 45px rgb(160, 158, 0);
     ;
   }
 
@@ -273,7 +265,6 @@ img {
 
 #deal-btn:hover {
   background-color: rgba(255, 255, 255, 0.4);
-  /* Slightly less transparent on hover */
   color: #000;
   box-shadow:
     0 0 10px #0ff,
@@ -282,6 +273,18 @@ img {
     0 0 50px #0ff,
     0 0 100px #0ff,
     0 0 150px #0ff;
+}
+
+#bet-size-btn:hover{
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #000;
+  box-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 15px #0ff,
+    0 0 25px #0ff,
+    0 0 50px #0ff,
+    0 0 80px #0ff;
 }
 
 

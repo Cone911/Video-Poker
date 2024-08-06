@@ -16,7 +16,7 @@ const payouts = {
   "Three of a Kind": 3,
   "Two Pair": 2,
   "Jacks or Better": 1
-};
+}
 
 /*----- STATE VARIABLES -----*/
 let playerHand = [];
@@ -25,6 +25,8 @@ let betSize;
 let maxBet;
 let gamePhase;
 let heldCards;
+
+
 
 
 /*----- CACHED ELEMENTS  -----*/
@@ -36,6 +38,30 @@ const dealBtn = document.querySelector('#deal-btn');
 const messagesEl = document.querySelector('.messages');
 
 const cardsArray = Array.from(cardsEl);
+
+// SOUND FX LIBRARY:
+let swooshAudio = new Audio('SoundFx/Quick-Woosh-Edit.mp3');
+swooshAudio.volume = 0.25;
+swooshAudio.playbackRate = 1;
+
+let flippingCardAudio = new Audio('SoundFx/Flipping Card.mp3');
+flippingCardAudio.volume = 0.30;
+flippingCardAudio.playbackRate = 0.70;
+
+let coinAudio = new Audio('SoundFx/Coin.mp3');
+flippingCardAudio.volume = 0.30;
+
+let reverseAudio = new Audio('SoundFx/Reverse Bass.mp3');
+flippingCardAudio.volume = 0.30;
+
+let dealBtnAudio = new Audio('SoundFx/Deal Button Pop.wav');
+dealBtnAudio.volume = 0.60;
+
+let holdCardAudio = new Audio('SoundFx/Finger Snap.wav');
+holdCardAudio.volume = 0.60;
+
+let fanfareAudio = new Audio('SoundFx/Fanfare.wav');
+fanfareAudio.volume = 0.60;
 
 
 /*----- EVENT LISTENERS -----*/
@@ -53,6 +79,7 @@ cardsArray.forEach((card, index) => {
 betSizeBtn.addEventListener('click', incrementBetSize);
 
 dealBtn.addEventListener('click', () => {
+  dealBtnAudio.play();
   if (gamePhase === "deal") {
     deductBet();
     renderCredits(playerCredits);
@@ -111,13 +138,17 @@ function renderPlayerHand() {
       if (gamePhase == "deal") {
         card.className = 'card back';
         card.classList.add('animate__animated', 'animate__fadeInDown');
+        swooshAudio.currentTime = 0;
+        swooshAudio.play();
       } else if (gamePhase === "draw") {
         card.className = `card ${playerHand[index]}`;
         card.classList.add('animate__animated', 'animate__flipInY');
+        flippingCardAudio.currentTime = 0;
+        flippingCardAudio.play();
       } else if (gamePhase == "roundOver"){
-        
+  
       }
-    }, index * 128);
+    }, index * 280);
   });
 }
 
@@ -168,6 +199,9 @@ function incrementBetSize() {
   betSize++
   if (betSize > maxBetSize) {
     betSize = 1;
+    reverseAudio.play();
+  } else {
+   coinAudio.play();
   }
   renderBetSize(betSize);
 }
@@ -195,6 +229,8 @@ function dealCards(deck, numberOfCards) {
 
 function toggleHoldStatus(index, cardElement) {
   heldCards[index] = !heldCards[index];
+  holdCardAudio.currentTime = 0;
+  holdCardAudio.play();
 }
 
 function replaceNonHeldCards() {
@@ -231,9 +267,6 @@ function removeStyling() {
 function evaluateHand() {
   let ranks = playerHand.map(card => card.slice(1));
   let suits = playerHand.map(card => card[0]);
-
-  console.log('Ranks:', ranks); // Debug the ranks being processed
-  console.log('Suits:', suits); // Debug the suits being processed
 
   let rankCounts = {};
   let suitCounts = {};
@@ -355,6 +388,7 @@ function evaluateHand() {
   }
 
   if (winningCombination) {
+    fanfareAudio.play();
     let payout = payouts[winningCombination] * betSize;
     playerCredits += payout;
     messagesEl.innerText = `${winningCombination}! You win ${payout} credits!`;
