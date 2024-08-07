@@ -90,7 +90,15 @@ cardsArray.forEach((card, index) => {
 });
 
 
-betSizeBtn.addEventListener('click', incrementBetSize);
+betSizeBtn.addEventListener('click', () =>{
+  if (gamePhase === "draw"){
+    return;
+  } else if (gamePhase === "roundOver"){
+    return;
+  } else {
+    incrementBetSize();
+  }
+});
 
 dealBtn.addEventListener('click', () => {
   dealBtnAudio.play();
