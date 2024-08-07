@@ -69,12 +69,11 @@ h4 {
 }
 
 
-img {
+#payout-table-img {
   width: 100%;
   height: auto;
   position: relative;
   border-bottom: 5px solid transparent;
-  animation: animateBorder 3s ease-in-out infinite;
 }
 
 
@@ -305,79 +304,6 @@ img {
     border-right: 5px solid transparent;
     border-bottom: 5px solid transparent;
     border-left: 5px solid transparent;
-  }
-}
-
-
-/* ---- Media query for larger screens ----- */
-@media (min-width: 1200px) {
-  #bet-size-btn {
-    width: 100px;
-    height: 100px;
-    font-size: 3vh;
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 4vh;
-  }
-
-  .payout-title {
-    font-size: 3vh;
-  }
-
-  .board {
-    flex-wrap: wrap;
-  }
-
-  .card {
-    width: 30vw;
-    min-width: 40px;
-    max-width: 80px;
-  }
- .bet-size-container{
-  align-items: center;
-  gap: 12px;
- }
-  #bet-size-btn {
-    width: 80%;
-    height: auto;
-    font-size: 10vw;
-  }
-  
-.credits-container{
-  flex-direction: column;
-}
-  .credits {
-    font-size: 2vh;
-  }
-
-  .bet-size-title {
-    font-size: 2vh;
-  }
-
-  #deal-btn {
-    height: 100px;
-    font-family: "Nabla", system-ui;
-    font-size: 7vw;
-    border-radius: 25px;
-    background-color: rgba(53, 86, 216, 0.387);
-    border: 2px solid rgb(255, 0, 0);
-    border-radius: 10px;
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  
-    animation: neonBreath 0.6s infinite alternate;
-  
-    box-shadow:
-      0 0 2px rgb(195, 213, 0),
-      0 0 3px rgb(221, 232, 0),
-      0 0 4px rgb(196, 218, 0),
-      0 0 5px rgb(191, 198, 0),
-      0 0 6px rgb(189, 176, 0),
-      0 0 7px rgb(160, 158, 0);
   }
 }
 
@@ -941,5 +867,71 @@ img {
 
 #checkboxInput:hover + .toggleSwitch {
   background-color: rgb(61, 61, 61);
+}
+
+/* ---- Media query for Mobile screens ----- */
+@media (max-width: 620px) {
+  .title {
+    font-size: 4vh;
+  }
+
+  .payout-title {
+    font-size: 3vh;
+  }
+
+  .board {
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 30vw;
+    min-width: 40px;
+    max-width: 80px;
+  }
+
+ .bet-size-container{
+  align-items: center;
+  gap: 12px;
+ }
+
+  #bet-size-btn {
+    width: 80%;
+    height: auto;
+    font-size: 10vw;
+  }
+  
+.credits-container{
+  flex-direction: column;
+}
+  .credits {
+    font-size: 2vh;
+  }
+
+  .bet-size-title {
+    font-size: 2vh;
+  }
+
+  #deal-btn {
+    height: 100px;
+    font-family: "Nabla", system-ui;
+    font-size: 7vw;
+    border-radius: 25px;
+    background-color: rgba(53, 86, 216, 0.387);
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 10px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  
+    animation: neonBreath 0.6s infinite alternate;
+  
+    box-shadow:
+      0 0 2px rgb(195, 213, 0),
+      0 0 3px rgb(221, 232, 0),
+      0 0 4px rgb(196, 218, 0),
+      0 0 5px rgb(191, 198, 0),
+      0 0 6px rgb(189, 176, 0),
+      0 0 7px rgb(160, 158, 0);
+  }
 }
 
