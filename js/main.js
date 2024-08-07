@@ -107,6 +107,7 @@ dealBtn.addEventListener('click', () => {
     renderCredits(playerCredits);
     clearMessages();
     resetDeck();
+    resetHeldCards();
     shuffleDeck(deck);
     dealCards(deck, 5);
     renderPlayerHand();
@@ -116,25 +117,28 @@ dealBtn.addEventListener('click', () => {
   } else if (gamePhase === "draw") {
     removeStyling();
     replaceNonHeldCards();
-    renderPlayerHandwithNoAnimations();
+    renderPlayerHandwithNewAnimations();
+  
+    setTimeout(() => {
     evaluateHand();
     renderCredits(playerCredits);
-    resetHeldCards();
-    // dealBtn.innerText = "";
     dealBtn.classList.add('invisible');
+    }, 1400);  //1.4 SEC DELAY - WAITS FOR ANIMATIONS TO END.
+  
     setTimeout(() => {
-      clearMessages();
+      removeStyling();
       gamePhase = "roundOver";
       dealBtn.classList.remove('invisible');
       dealBtn.innerText = "DEAL";
-    }, 2800); // 2.8 SEC DELAY
+    }, 2000); // 2 SEC DELAY
+  
   } else if(gamePhase === "roundOver"){
     clearMessages();
     confettiEl.classList.add('animate__animated', 'animate__fadeOutDownBig');
     setTimeout(() => {
       confettiEl.classList.add('hidden');
       confettiEl.classList.remove('animate__animated', 'animate__fadeOutDownBig');    
-    }, 1200);
+    }, 1400);
     gamePhase = "deal";
     renderPlayerHand();
     dealBtn.innerText = "BET";
@@ -185,16 +189,23 @@ function renderPlayerHand() {
   });
 }
 
-function renderPlayerHandwithNoAnimations() {
+function renderPlayerHandwithNewAnimations() {
   cardsEl.forEach((card, index) => {
     setTimeout(() => {
       if (gamePhase == "deal") {
         card.className = 'card back';
       } else if (gamePhase === "draw") {
         card.className = `card ${playerHand[index]}`;
+        if(!heldCards[index]){
+          card.classList.add('animate__animated', 'animate__fadeInDown');
+          swooshAudio.currentTime = 0;
+          swooshAudio.play();
+          }
+        
       } else if (gamePhase == "roundOver"){
+        // removeStyling();
       }
-    }, index * 100);
+    }, index * 280);
   });
 }
 
@@ -444,3 +455,19 @@ function toggleMute() {
     audio.muted = !audio.muted;
   });
 }
+
+//----------------- CODE GRAVEYARD -----------------//
+
+// function renderPlayerHandwithNoAnimations() {
+  //   cardsEl.forEach((card, index) => {
+  //     setTimeout(() => {
+  //       if (gamePhase == "deal") {
+  //         card.className = 'card back';
+  //       } else if (gamePhase === "draw") {
+  //         card.className = `card ${playerHand[index]}`;
+  //       } else if (gamePhase == "roundOver"){
+  //         // removeStyling();
+  //       }
+  //     }, index * 100);
+  //   });
+  // }
