@@ -338,6 +338,7 @@ img {
   }
  .bet-size-container{
   align-items: center;
+  gap: 12px;
  }
   #bet-size-btn, #deal-btn {
     width: 80%;
