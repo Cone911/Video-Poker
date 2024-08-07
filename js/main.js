@@ -206,7 +206,11 @@ function highlightHeldCard(index) {
 }
 
 function renderCredits(playerCredits) {
+  if (playerCredits <= 0){
+    creditsEl.innerText = "Add Credits to continue";
+  } else {
   creditsEl.innerText = `Credits: ${playerCredits}`;
+  }
 }
 
 function renderBetSize(betSize) {
@@ -227,12 +231,12 @@ function resetDeck() {
 }
 
 function incrementBetSize() {
-  betSize++
-  if (betSize > maxBetSize) {
+  if (betSize >= maxBetSize || betSize >= playerCredits) {
     betSize = 1;
     reverseAudio.play();
   } else {
-   coinAudio.play();
+    betSize++;
+    coinAudio.play();
   }
   renderBetSize(betSize);
 }
