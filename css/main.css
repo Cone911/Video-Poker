@@ -66,7 +66,6 @@ h4 {
   position: relative;
 }
 
-
 .board {
   display: flex;
   justify-content: space-around;
@@ -98,12 +97,9 @@ h4 {
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
+ 
+  transition: transform 0.3s ease-in-out;
   
-  transition: transform 0.3s;
-}
-
-.card:hover{
-  transform: scale(1.3) !important;
 }
 
 .controls {
@@ -127,15 +123,12 @@ h4 {
   align-items: center;
 }
 
-
 .credits {
   border: 3px solid rgb(216, 124, 12);
   background-color: rgba(155, 210, 146, 0.275);
   font-size: 3vh;
   flex-wrap: wrap;
 }
-
-
 
 .bet-size-container {
   display: flex;
@@ -202,6 +195,39 @@ h4 {
     0 0 7px rgb(160, 158, 0);
 }
 
+#deal-btn:hover{
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #000;
+  box-shadow:
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 30px #0ff,
+    0 0 50px #0ff,
+    0 0 100px #0ff,
+    0 0 150px #0ff;
+}
+
+#bet-size-btn:hover{
+  background-color: rgba(255, 255, 255, 0.4);
+  color: #000;
+  box-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 15px #0ff,
+    0 0 25px #0ff,
+    0 0 50px #0ff,
+    0 0 80px #0ff;
+}
+
+.card.draw-hover:hover{
+  transform: scale(1.3) !important;
+}
+
+.held {
+  border: 5px solid red;
+  animation: animateBorder 0.20s ease-in-out infinite; 
+  animation: neonBreath 0.6s infinite alternate;
+}
 
 @keyframes neonBreath {
   0% {
@@ -270,39 +296,6 @@ h4 {
   }
 }
 
-#deal-btn:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-  color: #000;
-  box-shadow:
-    0 0 10px #0ff,
-    0 0 20px #0ff,
-    0 0 30px #0ff,
-    0 0 50px #0ff,
-    0 0 100px #0ff,
-    0 0 150px #0ff;
-}
-
-#bet-size-btn:hover{
-  background-color: rgba(255, 255, 255, 0.4);
-  color: #000;
-  box-shadow:
-    0 0 5px #0ff,
-    0 0 10px #0ff,
-    0 0 15px #0ff,
-    0 0 25px #0ff,
-    0 0 50px #0ff,
-    0 0 80px #0ff;
-}
-
-
-
-.held {
-  border: 5px solid red;
-  animation: animateBorder 0.20s ease-in-out infinite; 
-  animation: neonBreath 0.6s infinite alternate;
-}
-
-
 
 /* ---- Media query for larger screens ----- */
 @media (min-width: 1200px) {
@@ -332,7 +325,6 @@ h4 {
 #confetti.hidden {
   display: none;
 }
-
 
 /* ----- Classes for the Deck of Cards ----- */
 
@@ -875,3 +867,4 @@ h4 {
 #checkboxInput:hover + .toggleSwitch {
   background-color: rgb(61, 61, 61);
 }
+

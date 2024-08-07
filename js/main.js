@@ -128,7 +128,11 @@ dealBtn.addEventListener('click', () => {
     }, 2800); // 2.8 SEC DELAY
   } else if(gamePhase === "roundOver"){
     clearMessages();
-    confettiEl.classList.add('hidden');
+    confettiEl.classList.add('animate__animated', 'animate__fadeOutDownBig');
+    setTimeout(() => {
+      confettiEl.classList.add('hidden');
+      confettiEl.classList.remove('animate__animated', 'animate__fadeOutDownBig');    
+    }, 1200);
     gamePhase = "deal";
     renderPlayerHand();
     dealBtn.innerText = "BET";
@@ -169,10 +173,11 @@ function renderPlayerHand() {
       } else if (gamePhase === "draw") {
         card.className = `card ${playerHand[index]}`;
         card.classList.add('animate__animated', 'animate__flipInY');
+        card.classList.add('draw-hover');
         flippingCardAudio.currentTime = 0;
         flippingCardAudio.play();
       } else if (gamePhase == "roundOver"){
-  
+        card.classList.remove('draw-hover');
       }
     }, index * 280);
   });
