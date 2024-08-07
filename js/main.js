@@ -120,10 +120,12 @@ dealBtn.addEventListener('click', () => {
     evaluateHand();
     renderCredits(playerCredits);
     resetHeldCards();
-    dealBtn.innerText = "";
+    // dealBtn.innerText = "";
+    dealBtn.classList.add('invisible');
     setTimeout(() => {
       clearMessages();
       gamePhase = "roundOver";
+      dealBtn.classList.remove('invisible');
       dealBtn.innerText = "DEAL";
     }, 2800); // 2.8 SEC DELAY
   } else if(gamePhase === "roundOver"){
