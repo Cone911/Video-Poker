@@ -340,11 +340,12 @@ img {
   align-items: center;
   gap: 12px;
  }
-  #bet-size-btn, #deal-btn {
+  #bet-size-btn {
     width: 80%;
     height: auto;
     font-size: 10vw;
   }
+  
 .credits-container{
   flex-direction: column;
 }
@@ -357,14 +358,14 @@ img {
   }
 
   #deal-btn {
-    width: 75%;
+    height: 100px;
     font-family: "Nabla", system-ui;
-    font-size: 4vw;
+    font-size: 7vw;
     border-radius: 25px;
     background-color: rgba(53, 86, 216, 0.387);
     border: 2px solid rgb(255, 0, 0);
     border-radius: 10px;
-    letter-spacing: 6px;
+    letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
   
@@ -378,7 +379,6 @@ img {
       0 0 6px rgb(189, 176, 0),
       0 0 7px rgb(160, 158, 0);
   }
-
 }
 
 
