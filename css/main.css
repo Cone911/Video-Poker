@@ -59,16 +59,28 @@ h4 {
 }
 
 #payout-table {
+  justify-content: center;
+  align-items: center;
   background-color: rgba(53, 86, 216, 0.387);
   margin: 0px;
-  width: 55%;
+  width: 100%;
   height: auto;
   position: relative;
 }
 
+
+img {
+  width: 100%;
+  height: auto;
+  position: relative;
+  border-bottom: 5px solid transparent;
+  animation: animateBorder 3s ease-in-out infinite;
+}
+
+
 .board {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
   align-items: center;
   height: 100%;
@@ -304,6 +316,68 @@ h4 {
     height: 100px;
     font-size: 3vh;
   }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 4vh;
+  }
+
+  .payout-title {
+    font-size: 3vh;
+  }
+
+  .board {
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 30vw;
+    min-width: 40px;
+    max-width: 80px;
+  }
+ .bet-size-container{
+  align-items: center;
+ }
+  #bet-size-btn, #deal-btn {
+    width: 80%;
+    height: auto;
+    font-size: 10vw;
+  }
+.credits-container{
+  flex-direction: column;
+}
+  .credits {
+    font-size: 2vh;
+  }
+
+  .bet-size-title {
+    font-size: 2vh;
+  }
+
+  #deal-btn {
+    width: 75%;
+    font-family: "Nabla", system-ui;
+    font-size: 4vw;
+    border-radius: 25px;
+    background-color: rgba(53, 86, 216, 0.387);
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 10px;
+    letter-spacing: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  
+    animation: neonBreath 0.6s infinite alternate;
+  
+    box-shadow:
+      0 0 2px rgb(195, 213, 0),
+      0 0 3px rgb(221, 232, 0),
+      0 0 4px rgb(196, 218, 0),
+      0 0 5px rgb(191, 198, 0),
+      0 0 6px rgb(189, 176, 0),
+      0 0 7px rgb(160, 158, 0);
+  }
+
 }
 
 
