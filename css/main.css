@@ -9,15 +9,21 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
 }
 
 .main-container {
   display: grid;
   grid-template-rows: 0.5fr 1fr 0.5fr 1.5fr 1fr;
-  justify-content: center;
+  grid-template-columns: 1fr;
+  padding: 1% 5% 1% 5%;
+  justify-content: space-around;
   align-items: center;
   height: 100vh;
-  gap: 10px;
+  width: 100%;
+  border: none;
+  gap: 5px;
   text-align: center;
   font-family: "Bungee Spice", sans-serif;
   text-shadow:
@@ -37,18 +43,15 @@ div {
 
 h4 {
   font-size: 2vh;
-  padding: 12px;
-}
-
-.messages {
-  font-size: 3.2vh;
+  padding: 2%;
 }
 
 .payout-container {
-  padding: 5px;
+  padding: 0px 5% 0px 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 10px;
 }
 
 .payout-title {
@@ -56,26 +59,71 @@ h4 {
   margin-bottom: 0px;
   font-size: 3.5vh;
   background-color: rgba(53, 86, 216, 0.387);
+  box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.45);
+  border-radius: 12px;
 }
 
-#payout-table {
+.grid-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  text-align: center;
+  vertical-align: center;
+  padding: 5px 12% 5px 12%;
+  background-color: rgba(53, 86, 216, 0.387);
+  box-shadow: 8px 8px 22px rgba(0, 0, 0, 0.65);
+  gap: 5px;
+  border-radius: 12px;
+}
+
+.cell {
+  height: 100%;
+  font-size: 1vw;
+  font-weight: 400;
+  padding: 0px 2px 0px 2px;
+  border: 2px dashed rgb(212, 255, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+  vertical-align: center;
+  text-align: center;
+  vertical-align: center;
+}
+
+.grid-item.header {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  font-size: 1vw;
+  font-weight: bold;
+  background-color: rgba(212, 255, 0, 0.55);
+  padding: 0px 2px 0px 2px;
   justify-content: center;
   align-items: center;
-  background-color: rgba(53, 86, 216, 0.387);
-  margin: 0px;
-  width: 100%;
-  height: auto;
-  position: relative;
+  text-align: center;
+  vertical-align: center;
 }
 
-
-#payout-table-img {
-  width: 100%;
-  height: auto;
-  position: relative;
-  border-bottom: 5px solid transparent;
+.win{
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 4px dashed rgb(212, 255, 0, 0.2);
+  border-left: 12px solid rgb(212, 255, 0, 0.2);
+  height: 100%;
 }
 
+.highlight{
+  background-color: rgba(245, 221, 8, 0.365);
+  border: 2px dashed rgb(255, 247, 0);
+  box-shadow:
+    0 0 2px rgb(195, 213, 0),
+    0 0 4px rgb(221, 232, 0),
+    0 0 8px rgb(196, 218, 0);
+}
+
+.messages {
+  font-size: 3.2vh;
+}
 
 .board {
   display: flex;
@@ -119,6 +167,7 @@ h4 {
   align-items: center;
   padding-bottom: 5px;
   z-index: 900;
+  height: 100%;
 }
 
 .controls>div {
@@ -132,6 +181,7 @@ h4 {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  gap: 10px;
 }
 
 .credits {
@@ -875,12 +925,50 @@ h4 {
 
 /* ---- Media query for Mobile screens ----- */
 @media (max-width: 620px) {
+ 
+.main-container{
+  padding: 0% 0% 0% 0%;
+  gap: 0px;
+}
+
   .title {
     font-size: 4vh;
   }
 
   .payout-title {
     font-size: 3vh;
+  }
+
+   .grid-container {
+     overflow: hidden;
+    justify-content: center;
+    gap: 0px;
+    padding: 0;
+  }
+
+  .cell {
+    height: 100%;
+    font-size: 3vw;
+    font-weight: 500;
+    padding: 0px 12px 0px 12px;
+    border: 2px dashed rgb(212, 255, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    vertical-align: center;
+  }
+  
+  .grid-item.header {
+    font-size: 2vw;
+    font-weight: 500;
+    background-color: rgba(212, 255, 0, 0.55);
+    padding: 0px 12px 0px 12px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .win{
+    font-size: 2vw;
+    border-left: 0px dashed rgb(212, 255, 0, 0.2);
   }
 
   .board {
@@ -895,7 +983,7 @@ h4 {
 
  .bet-size-container{
   align-items: center;
-  gap: 12px;
+  gap: 6px;
  }
 
   #bet-size-btn {
@@ -906,6 +994,8 @@ h4 {
   
 .credits-container{
   flex-direction: column;
+  gap: 0px;
+  justify-content: center;
 }
   .credits {
     font-size: 2vh;

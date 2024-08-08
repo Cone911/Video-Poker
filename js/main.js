@@ -35,6 +35,7 @@ const dealBtn = document.querySelector('#deal-btn');
 const messagesEl = document.querySelector('.messages');
 const confettiEl = document.getElementById('confetti');
 const muteBtn = document.getElementById('checkboxInput');
+const cellEl = document.querySelectorAll('.cell');
 
 const cardsArray = Array.from(cardsEl);
 
@@ -113,6 +114,7 @@ dealBtn.addEventListener('click', () => {
     renderPlayerHand();
     gamePhase = "draw";
     dealBtn.innerText = "HOLD";
+    messagesEl.classList.remove('invisible')
     messagesEl.innerText = "Click cards to hold.";
   } else if (gamePhase === "draw") {
     removeStyling();
@@ -228,10 +230,19 @@ function renderCredits(playerCredits) {
 
 function renderBetSize(betSize) {
   betSizeBtn.innerText = betSize;
+  cellEl.forEach((cell) => {
+    if(cell.classList.contains(`column-${betSize}`)){
+      cell.classList.add('highlight');
+    } else {
+      cell.classList.remove('highlight');
+    }
+  });
 }
 
+
 function clearMessages() {
-  messagesEl.innerText = '';
+  // messagesEl.innerText = '';
+  messagesEl.classList.add('invisible');
 }
 
 function resetDeck() {
@@ -455,19 +466,3 @@ function toggleMute() {
     audio.muted = !audio.muted;
   });
 }
-
-//----------------- CODE GRAVEYARD -----------------//
-
-// function renderPlayerHandwithNoAnimations() {
-  //   cardsEl.forEach((card, index) => {
-  //     setTimeout(() => {
-  //       if (gamePhase == "deal") {
-  //         card.className = 'card back';
-  //       } else if (gamePhase === "draw") {
-  //         card.className = `card ${playerHand[index]}`;
-  //       } else if (gamePhase == "roundOver"){
-  //         // removeStyling();
-  //       }
-  //     }, index * 100);
-  //   });
-  // }
