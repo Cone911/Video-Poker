@@ -17,7 +17,7 @@ body {
   display: grid;
   grid-template-rows: 0.5fr 1fr 0.5fr 1.5fr 1fr;
   grid-template-columns: 1fr;
-  padding: 1% 5% 1% 5%;
+  padding: 0% 5% 0% 5%;
   justify-content: space-around;
   align-items: center;
   height: 100vh;
@@ -33,7 +33,7 @@ body {
 
 div {
   border: none;
-  margin: 2px;
+  margin: 0px;
 }
 
 .title {
@@ -72,10 +72,11 @@ h4 {
   text-align: center;
   vertical-align: center;
   padding: 5px 12% 5px 12%;
+  border-radius: 12px;
   background-color: rgba(53, 86, 216, 0.387);
   box-shadow: 8px 8px 22px rgba(0, 0, 0, 0.65);
   gap: 5px;
-  border-radius: 12px;
+  
 }
 
 .cell {
@@ -105,11 +106,12 @@ h4 {
 }
 
 .win{
+  height: 100%;
+  font-size: 2vh;
   font-weight: 600;
   text-align: center;
   border-bottom: 4px dashed rgb(212, 255, 0, 0.2);
   border-left: 12px solid rgb(212, 255, 0, 0.2);
-  height: 100%;
 }
 
 .highlight{
