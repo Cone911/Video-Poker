@@ -81,10 +81,12 @@ h4 {
 
 .cell {
   height: 100%;
+  padding: 0px 2px 0px 2px;
   font-size: 1vw;
   font-weight: 400;
-  padding: 0px 2px 0px 2px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
   border: 2px dashed rgb(212, 255, 0, 0.2);
+  text-shadow: black;
   align-items: center;
   justify-content: center;
   vertical-align: center;
@@ -97,6 +99,7 @@ h4 {
   grid-row-end: 3;
   font-size: 1vw;
   font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
   background-color: rgba(212, 255, 0, 0.55);
   padding: 0px 2px 0px 2px;
   justify-content: center;
@@ -110,6 +113,7 @@ h4 {
   font-size: 2vh;
   font-weight: 600;
   text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.9);
   border-bottom: 4px dashed rgb(212, 255, 0, 0.2);
   border-left: 12px solid rgb(212, 255, 0, 0.2);
 }
