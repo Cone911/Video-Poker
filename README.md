@@ -28,11 +28,11 @@
 ## 1. Introduction
 ***The iconic Vegas classic, now available on all of your devices!***
 
-This game is a simple, web-based version of the classic video poker game, Jacks-or-Better. The objective of the game is to get at least a pair of jacks in your hand, and win credits based on the payout table.
-
 Among all the games of chance, Video Poker stood out to me as something unique—where strategy met luck in a perfect balance. Unlike other casino games, Video Poker challenges the player to make the best decisions while leaving just enough to fate.
 
 As a beginner programmer, it felt natural to bring this iconic game to life in a way that mimics the feeling of the Vegas classic. I chose to recreate this classic in a way that would have everyone experience a similar excitement.
+
+This game is a simple, web-based version of the classic video poker game, Jacks-or-Better. The objective of the game is to get at least a pair of jacks in your hand, and win credits based on the payout table.
 
 ## 2. Features
 - Responsive design for optimal play on various devices.
