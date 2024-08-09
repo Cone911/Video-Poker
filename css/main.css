@@ -946,7 +946,7 @@ h4 {
   }
 
    .grid-container {
-     overflow: hidden;
+    overflow: hidden;
     justify-content: center;
     gap: 0px;
     padding: 0;
